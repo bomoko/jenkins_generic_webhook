@@ -3,25 +3,25 @@ node {
   pipelineTriggers([
    [$class: 'GenericTrigger',
     genericVariables: [
-     [key: 'ref', value: '$.ref'],
-     [
-      key: 'before',
-      value: '$.before',
-      expressionType: 'JSONPath', //Optional, defaults to JSONPath
-      regexpFilter: '', //Optional, defaults to empty string
-      defaultValue: '' //Optional, defaults to empty string
-     ]
+     [key: 'number', value: '$.number']//,
+    //  [
+    //   key: 'before',
+    //   value: '$.before',
+    //   expressionType: 'JSONPath', //Optional, defaults to JSONPath
+    //   regexpFilter: '', //Optional, defaults to empty string
+    //   defaultValue: '' //Optional, defaults to empty string
+    //  ]
     ],
-    genericRequestVariables: [
-     [key: 'requestWithNumber', regexpFilter: '[^0-9]'],
-     [key: 'requestWithString', regexpFilter: '']
-    ],
-    genericHeaderVariables: [
-     [key: 'headerWithNumber', regexpFilter: '[^0-9]'],
-     [key: 'headerWithString', regexpFilter: '']
-    ],
+    // genericRequestVariables: [
+    //  [key: 'requestWithNumber', regexpFilter: '[^0-9]'],
+    //  [key: 'requestWithString', regexpFilter: '']
+    // ],
+    // genericHeaderVariables: [
+    //  [key: 'headerWithNumber', regexpFilter: '[^0-9]'],
+    //  [key: 'headerWithString', regexpFilter: '']
+    // ],
 
-    causeString: 'Triggered on $ref',
+    causeString: 'Triggered on $number',
 
     token: 'abc123',
     tokenCredentialId: '',
@@ -31,8 +31,8 @@ node {
 
     silentResponse: false,
 
-    regexpFilterText: '$ref',
-    regexpFilterExpression: 'refs/heads/' + BRANCH_NAME
+    regexpFilterText: '$number',
+    regexpFilterExpression: env.CHANGE_ID
    ]
   ])
  ])
@@ -40,12 +40,7 @@ node {
  stage("build") {
   sh '''
   echo Variables from shell:
-  echo ref $ref
-  echo before $before
-  echo requestWithNumber $requestWithNumber
-  echo requestWithString $requestWithString
-  echo headerWithNumber $headerWithNumber
-  echo headerWithString $headerWithString
+  echo number $number
   '''
  }
 }

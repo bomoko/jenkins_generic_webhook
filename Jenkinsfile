@@ -2,8 +2,8 @@ node {
  properties([
   pipelineTriggers([
    [$class: 'GenericTrigger',
-    genericVariables: [
-     [key: 'number', value: '$.number'],
+    // genericVariables: [
+    //  [key: 'number', value: '$.number'],
     //  [
     //   key: 'before',
     //   value: '$.before',
